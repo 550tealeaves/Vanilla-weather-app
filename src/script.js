@@ -23,6 +23,51 @@ function formatDate(timestamp){ //timestamp is the # of milliseconds since 1/19/
     return `${day} ${hours}:${minutes}`;
 }
 
+function formatDay(timestamp){ //STEP 58 - create new format to edit forecast date & send it timestamp - add formatDay to interpolated forecastDay.dt
+    let date = new Date(timestamp * 1000); //STEP 59 - converting timestamp
+    let day = date.getDay(); //STEP 60 - must create array so that day return is words and not numbers
+    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]; //STEP 61 create array 
+    
+    return days[day]; //STEP 62 - this will convert the long time number to shortened days
+}
+
+function displayForecast(response){ //STEP 39 - create displayForecast function  & paste HTML forecast code between backticks ``;] - STEP 54 add response as parameter
+    console.log(response.data.daily);
+    let forecast = response.data.daily; //STEP 55 - shows daily forecast STEP 56 - store response.data.daily in variable, forecast
+    let forecastElement = document.querySelector("#forecast");
+    
+    let forecastHTML = `<div class="row">`; //STEP 41 - set variable forecastHTML = to empty string  - move HTML code into forecastHTML - STEP 43 - move <div class="row"> withn backticks
+    let days = ["Thu", "Fri", "Sat", "Sun", "Mon"]; //STEP 45 - create array to loop forecast HTML
+    forecast.forEach(function(forecastDay, index){ //STEP 46 - use foreEach so loop repeats and insert the forecastHTML=forecastHTML+... b/w brackets //STEP 57 - change start of loop and function from days to forecast & forecastDay //STEP 63 - add 2nd paramter, index
+    if (index < 6){ //STEP 64 - will display only indexes 0-5 and hide 6+
+        forecastHTML = forecastHTML + `  
+                    
+                        <div class="col-2">
+                            <div class="weather-forecast-date">
+                                ${formatDay(forecastDay.dt)}
+                            </div>
+                            <img src="https://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" alt="" width="42" />
+                            <div class="weather-forecast-temperatures">
+                                <span class="weather-forecast-temperature-max">
+                                    ${Math.round(forecastDay.temp.max)}</span>
+                                <span class="weather-forecast-temperature-min">
+                                    ${Math.round(forecastDay.temp.min)}</span>
+                            </div>
+                        </div>
+                `;
+        }        
+    })
+      
+    forecastHTML = forecastHTML + `</div>`; //STEP 44 - remember to close the div
+    forecastElement.innerHTML = forecastHTML; //STEP 42 - set the HTML code = to forecastHTML
+}
+
+function getForecast(coordinates){ //STEP 48 - create function getForecast to receive coordinates, sent from displayTemp(response), which returns city coords 
+    console.log(coordinates);
+    let apiKey = "ab6da5069e5bc23122a387b3e99bd05b"; //STEP 50 - copy/paste apiKey statement from step 1
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=imperial`; ////STEP 49 - add apiUrl, remove &exclude{part}, interpolate apiKey & coordinates.lat/lon & add units=metric
+    axios.get(apiUrl).then (displayForecast); //STEP 53 - make API call and trigger displayForecast function
+}
 
 
 function displayTemperature(response) { //Step 4 - create function that activates when we get response from api
@@ -45,6 +90,9 @@ function displayTemperature(response) { //Step 4 - create function that activate
     dateElement.innerHTML = formatDate(response.data.dt * 1000); //Step 5 - send timestamp (inside response.data.dt *1000) to formatDate function so it is reflects in innerHTML
     iconElement.setAttribute("src", `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`); //Step 8 - use setAttribute() function to inject icon link into src
     iconElement.setAttribute("alt", response.data.weather[0].description); //Step 9 - set alt equal to description so that shows in console element
+
+
+    getForecast(response.data.coord); //STEP 47 - call getForecast and send the response.data.coord
 }
 
 function search(city) { //STEP 16 - create function search (above function handleSubmit and add city parameter) - then move the apiKey, apiUrl, & axios.get() variables under it and delete city variable 
@@ -90,3 +138,4 @@ let celsiusLink = document.querySelector("#celsius-link"); //STEP 29 - select id
 celsiusLink.addEventListener("click", displayCelsiusTemp); //STEP 30 - add eventListener that triggers function displayCelsiusTemp when you click Celsius link
 
 search("New York"); //STEP 17 after #16, form will be blank, have to pass city name through search function
+
