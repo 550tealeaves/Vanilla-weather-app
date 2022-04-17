@@ -7,6 +7,9 @@
     <title>Vanilla Weather App</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="src/style.css"/>
 </head>
@@ -16,11 +19,12 @@
             <div class="weather-app">
                 <form id="search-form" class="mb-3">
                     <div class="row">
-                        <div class="col-9">
-                            <input type="search" placeholder="Type a city..." class="form-control" id="city-input" autocomplete="off"/>
+                        <div class="col-sm-9">
+                            <input type="search" placeholder="Type a city..." class="form-control" id="city-input"
+                                autocomplete="off" />
                         </div>
-                        <div class="col-3">
-                            <input type="submit" value="Search" class="btn btn-primary w-100">
+                        <div class="col-sm-3">
+                            <input type="submit" value="Search" class="btn btn-color text-white w-100">
                         </div>
                     </div>
                 </form>
@@ -32,40 +36,39 @@
                         <li id="description">
                         </li>
                     </ul>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <div class="clearfix weather-temperature">
-                        <img src="" 
-                            alt="Mostly sunny"
-                            id="icon"
-                            class="float-left"
-                        />
-                        <span class="float-left">
-                        <strong id="temperature"></strong><span class="units">
-                            <a href="#" id="celsius-link" class="active">&degC</a> |
-                            <a href="#" id="fahrenheit-link">&degF</a></span>
-                        </span>                          
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="clearfix weather-temperature">
+                            <img src="" alt="Mostly sunny" id="icon" class="float-left" />
+                            <span class="float-left">
+                                <strong id="temperature"></strong><span class="units">
+                                    <a href="#" id="celsius-link" class="active">&degC</a> |
+                                    <a href="#" id="fahrenheit-link">&degF</a></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <ul>
+                            <li>
+                                Humidity: <span id="humidity"></span>%
+                            </li>
+                            <li>
+                                Wind: <span id="wind"></span> m/s
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="weather-forecast" id="forecast">
+    
                     </div>
                 </div>
-                <div class="col-6">
-                    <ul>
-                        <li>
-                            Humidity: <span id="humidity"></span>%
-                        </li>
-                        <li>
-                            Wind: <span id="wind"></span> km/h
-                        </li>
-                    </ul>
-                </div>
-                <div class="weather-forecast" id="forecast"></div>
-        </div> 
-    </div> 
-    <small>
-        <a href="https://github.com/550tealeaves/Vanilla-weather-app" target="_blank">Open-source code</a> by Nastasia
-        Pollas
-    </small>
-    </div>
+            </div>
+            <div class="text-center font-change">
+                <a href="https://github.com/550tealeaves/Vanilla-weather-app" target="_blank">Open-source code</a> by
+                Nastasia
+                Pollas
+            </div>
+        </div>
     </div>
    <script src="src/script.js"></script> 
 </body>
