@@ -48,9 +48,9 @@ function displayForecast(response){ //STEP 39 - create displayForecast function 
                             </div>
                             <img src="https://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" alt="" width="42" />
                             <div class="weather-forecast-temperatures">
-                                <span class="weather-forecast-temperature-max">
+                                <span class="weather-forecast-temperature-max ms-1">
                                     ${Math.round(forecastDay.temp.max)}</span>
-                                <span class="weather-forecast-temperature-min">
+                                <span class="weather-forecast-temperature-min ms-1">
                                     ${Math.round(forecastDay.temp.min)}</span>
                             </div>
                         </div>
@@ -101,6 +101,19 @@ function search(city) { //STEP 16 - create function search (above function handl
     axios.get(apiUrl).then(displayTemperature); //step 3 - add axios.get
 }
 
+function searchLocation(position) {
+    let apiKey = "ab6da5069e5bc23122a387b3e99bd05b";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude
+        }&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
+
+    axios.get(apiUrl).then(displayTemperature);
+}
+
+function getCurrentLocation(event) {
+    event.preventDefault();
+    navigator.geolocation.getCurrentPosition(searchLocation);
+}
+
 function handleSubmit(event) { //STEP 12 - create function handleSubmit to modify value placed in search bar
     event.preventDefault(); //STEP 13 - stop pg from reloading when you submit
     let cityInputElement = document.querySelector("#city-input"); //STEP 14 - select form w/ id "city-input"
@@ -136,6 +149,9 @@ fahrenheitLink.addEventListener("click", displayFahrenheitTemp); //STEP 20 - add
 
 let celsiusLink = document.querySelector("#celsius-link"); //STEP 29 - select id="celsius=link"
 celsiusLink.addEventListener("click", displayCelsiusTemp); //STEP 30 - add eventListener that triggers function displayCelsiusTemp when you click Celsius link
+
+let currentLocationButton = document.querySelector("#current-location-button");
+currentLocationButton.addEventListener("click", getCurrentLocation);
 
 search("New York"); //STEP 17 after #16, form will be blank, have to pass city name through search function
 

@@ -19,12 +19,17 @@
             <div class="weather-app">
                 <form id="search-form" class="mb-3">
                     <div class="row">
-                        <div class="col-sm-9">
-                            <input type="search" placeholder="Type a city..." class="form-control" id="city-input"
+                        <div class="col-sm-6">
+                            <input type="search" placeholder="Type a city..." class="form-control shadow-none" id="city-input"
                                 autocomplete="off" />
                         </div>
                         <div class="col-sm-3">
-                            <input type="submit" value="Search" class="btn btn-color text-white w-100">
+                            <input type="submit" value="Search" class="btn btn-color shadow-none text-white w-100">
+                        </div>
+                        <div class="col-sm-3">
+                            <button class="btn btn-edit shadow-none w-100" id="current-location-button">
+                                Current
+                            </button>
                         </div>
                     </div>
                 </form>

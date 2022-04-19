@@ -102,3 +102,7 @@ li:first-letter {
 .font-change {
     font-size: 14px;
 }
+
+.btn-edit {
+    background-color: rgb(255, 252, 102);
+}
